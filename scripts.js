@@ -1,28 +1,41 @@
 
 
-
+let quoteItem={};
+let quoteList=[];
 fetch("https://type.fit/api/quotes")
   .then(function(response) {
+  
     return response.json();
   })
   .then(function(data) {
-      getQuote(data);
+
+      window.onload = function(){ 
+        getQuote(data);
+        $("#text").html("<h3>"+quoteItem.text+"</h3>");
+      $("#author").html("<h5> - "+quoteItem.author+"</h5>"); }
+    
+      $("button").click(function(){
+        getQuote(data);
+        $("#text").html("<h3>"+quoteItem.text+"</h3>");
+        $("#author").html("<h5> - "+quoteItem.author+"</h5>"); 
+
+      })
+    
     
   }); 
+    
+  
+  const getQuote=(d)=>{
+    let random=Math.trunc(d.length*Math.random());
+     quoteItem=d[random];
+  console.log(quoteItem.text+"-"+quoteItem.author);
 
-  const getQuote=(data)=>{
-      let random=Math.trunc(data.length*Math.random());
-      let quoteItem=data[random];
-    console.log(quoteItem);
-    return quoteItem;
-  }
+  return quoteItem;
 
-  $(document).ready(function(){
-    $("#new-quote").click(function(){
-      $("#text").load("demotext.txt");
-      $("#author").html("- "+"Jian")
-    });
-  });
+}
+
+
+
   
 
 
